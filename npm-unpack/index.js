@@ -7,10 +7,10 @@ module.exports = async function (context, req) {
     const azStrg = azStrgH(context);
     
     const inputs = {
-        pkg = req.query.pkg || (req.body ? req.body.pkg : ''),
-        version = req.query.version || (req.body ? req.body.version : ''),
-        entId = req.query.enterpriseId || (req.body ? req.body.enterpriseId : ''),
-        appId = req.query.applicationId || (req.body ? req.body.applicationId : '')
+        pkg = req.query.pkg ? req.query.pkg : (req.body ? req.body.pkg : ''),
+        version = req.query.version ? req.query.version : (req.body ? req.body.version : ''),
+        entId = req.query.enterpriseId ? req.query.enterpriseId : (req.body ? req.body.enterpriseId : ''),
+        appId = req.query.applicationId ? req.query.applicationId : (req.body ? req.body.applicationId : '')
     };
 
     context.log(inputs);
