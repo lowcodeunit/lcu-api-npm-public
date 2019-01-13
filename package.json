@@ -2,6 +2,7 @@
   "name": "@lowcodeunit/lcu-api-npm-public",
   "version": "0.0.0",
   "dependencies": {
+    "azure-storage": "^2.10.2",
     "exeq": "^3.0.0",
     "npm": "^6.5.0"
   }
