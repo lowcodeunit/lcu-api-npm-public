@@ -1,0 +1,8 @@
+{
+  "name": "@lowcodeunit/lcu-api-npm-public",
+  "version": "0.0.0",
+  "dependencies": {
+    "exeq": "^3.0.0",
+    "npm": "^6.5.0"
+  }
+}
