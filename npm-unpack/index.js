@@ -8,15 +8,14 @@ module.exports = async function(context, req) {
 
     const azStrg = await azStrgH(context);
 
-    const pkgPath = "__pkg__";
-
-    const containerName = "filesystem";
-
     const inputs = {
         pkg: req.query.pkg || (req.body && req.body.pkg),
         version: req.query.version || (req.body && req.body.version),
         entId: req.query.enterpriseId || (req.body && req.body.enterpriseId),
-        appId: req.query.applicationId || (req.body && req.body.applicationId)
+        appId: req.query.applicationId || (req.body && req.body.applicationId),
+        containerName: "filesystem",
+        pkgPath: context.executionContext.functionDirectory + "\\__pkg__",
+        rootDir: context.executionContext.functionDirectory
         // pkg = req.query.pkg || (req.body ? req.body.pkg : ''),
         // version = req.query.version || (req.body ? req.body.version : ''),
         // entId = req.query.enterpriseId || (req.body ? req.body.enterpriseId : ''),
@@ -25,44 +24,40 @@ module.exports = async function(context, req) {
 
     context.log(inputs);
 
-    if (inputs && inputs.pkg && inputs.version && inputs.entId && inputs.appId) {    
-        var pkgFiles = `${context.executionContext.functionDirectory}`;
-
-        var pkgAsPath = inputs.pkg.replace('/', '\\');
-   
-        context.log(pkgFiles);
+    if (inputs && inputs.pkg && inputs.version && inputs.entId && inputs.appId) {
+        var pkgAsPath = inputs.pkg.replace("/", "\\");
 
         await downloadNpmPackage({
             arg: `${inputs.pkg}@${inputs.version}`,
-            dir: `/${pkgPath}`
+            dir: `${inputs.pkgPath}`
         });
 
         var pkgFiles = [];
 
-        recursive(`/${pkgPath}/${inputs.pkg}`, async function(err, files) {
+        recursive(`${inputs.pkgPath}\\${pkgAsPath}`, async function(err, files) {
             pkgFiles.push(...files);
         });
 
         context.log(pkgFiles);
 
-        var container = await azStrg.EnsureBlobContainer(containerName);
+        var container = await azStrg.EnsureBlobContainer(inputs.containerName);
 
         context.log(container);
 
         var fileResults = [];
-        
-        var packageJsonPath = pkgFiles.find(pkgFile => pkgFile.endsWith('package.json'));
+
+        var packageJsonPath = pkgFiles.find(pkgFile => pkgFile.endsWith("package.json"));
 
         var packageJson = await fs.readJSON(packageJsonPath);
 
         for (let pkgFile of pkgFiles) {
-            var blobFilePath = pkgFile.replace(pkgPath, `${inputs.entId}\\${inputs.appId}`).substring(1);
+            var blobFilePath = pkgFile.replace(inputs.pkgPath, `${inputs.entId}\\${inputs.appId}`).substring(1);
 
-            blobFilePath = blobFilePath.replace(pkgAsPath, `${pkgAsPath}\\${packageJson.version}`)
+            blobFilePath = blobFilePath.replace(pkgAsPath, `${pkgAsPath}\\${packageJson.version}`);
 
             var content = await fs.readFile(pkgFile);
 
-            var status = await azStrg.CreateBlob(containerName, blobFilePath, content);
+            var status = await azStrg.CreateBlob(inputs.containerName, blobFilePath, content);
 
             status.File = blobFilePath;
 
