@@ -14,7 +14,7 @@ module.exports = async function(context, req) {
         entId: req.query.enterpriseId || (req.body && req.body.enterpriseId),
         appId: req.query.applicationId || (req.body && req.body.applicationId),
         containerName: "filesystem",
-        pkgPath: context.executionContext.functionDirectory + "\\__pkg__",
+        pkgPath: __dirname + "\\__pkg__",
         rootDir: context.executionContext.functionDirectory
         // pkg = req.query.pkg || (req.body ? req.body.pkg : ''),
         // version = req.query.version || (req.body ? req.body.version : ''),
@@ -64,6 +64,8 @@ module.exports = async function(context, req) {
             fileResults.push(status);
         }
 
+        context.log(filesResults);
+        
         var success = fileResults.every(fileResult => fileResult.Code == 0);
 
         if (success)
