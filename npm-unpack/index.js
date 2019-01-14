@@ -32,6 +32,8 @@ module.exports = async function(context, req) {
             dir: `${inputs.pkgPath}`
         });
 
+        context.log(`Package files loaded to ${inputs.pkgPath}`);
+        
         var pkgFiles = [];
 
         recursive(`${inputs.pkgPath}\\${pkgAsPath}`, async function(err, files) {
