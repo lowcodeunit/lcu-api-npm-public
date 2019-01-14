@@ -4,10 +4,22 @@ module.exports = function(context) {
     var blobService = azure.createBlobService();
 
     return {
-        EnsureBlobContainer: function(contaier) {
+        CreateBlob: function(containerName, blobPath, content) {
+            return new Promise((resolve, reject) => {
+                blobService.createBlockBlobFromText(containerName, blobPath, content, err => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve({ Code: 0, Message: "Success" });
+                    }
+                });
+            });
+        },
+
+        EnsureBlobContainer: function(containerName) {
             return new Promise((resolve, reject) => {
                 blobService.createContainerIfNotExists(
-                    contaier,
+                    containerName,
                     {
                         publicAccessLevel: "blob"
                     },
