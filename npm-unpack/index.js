@@ -7,6 +7,8 @@ module.exports = async function(context, req) {
     context.log("NPM Unpack function processing a request...");
 
     const azStrg = await azStrgH(context);
+    
+    context.log(req.query);
 
     const inputs = {
         pkg: req.query.pkg || (req.body && req.body.pkg),
