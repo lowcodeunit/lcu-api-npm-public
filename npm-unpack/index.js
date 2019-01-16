@@ -13,7 +13,7 @@ module.exports = async function(context, req) {
     const inputs = {
         pkg: req.query.pkg || (req.body && req.body.pkg),
         version: req.query.version || (req.body && req.body.version),
-        entId: req.query.enterpriseId || (req.body && req.body.enterpriseId),
+        entId: req.query.enterprise || req.query.enterpriseId || (req.body && req.body.enterpriseId),
         appId: req.query.applicationId || (req.body && req.body.applicationId),
         containerName: "filesystem",
         pkgPath: (process.env['npm-unpack.useLocalDir'] == "true" ? '' : __dirname) + process.env['npm-unpack.pkg-path'],
