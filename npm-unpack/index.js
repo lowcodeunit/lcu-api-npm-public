@@ -54,11 +54,24 @@ module.exports = async function(context, req) {
 
         var packageJson = await fs.readJSON(packageJsonPath);
 
-        for (let pkgFile of pkgFiles) {
-            var blobFilePath = pkgFile.replace(inputs.pkgPath, `${inputs.entId}\\${inputs.appId}`).substring(1);
+        context.log(inputs);
 
+        for (let pkgFile of pkgFiles) {
+            context.log(pkgFile);
+    
+            var seg = `${inputs.entId}\\${inputs.appId}`;
+
+            context.log(inputs.pkgPath);
+            context.log(seg);
+            
+            var blobFilePath = pkgFile.replace(inputs.pkgPath, seg);
+
+            context.log(blobFilePath);
+            
             blobFilePath = blobFilePath.replace(pkgAsPath, `${pkgAsPath}\\${packageJson.version}`);
 
+            context.log(blobFilePath);
+            
             var content = await fs.readFile(pkgFile);
 
             var status = await azStrg.CreateBlob(inputs.containerName, blobFilePath, content);
