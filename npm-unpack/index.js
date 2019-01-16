@@ -14,7 +14,7 @@ module.exports = async function(context, req) {
         entId: req.query.enterpriseId || (req.body && req.body.enterpriseId),
         appId: req.query.applicationId || (req.body && req.body.applicationId),
         containerName: "filesystem",
-        pkgPath: __dirname + "\\__pkg__",
+        pkgPath: (process.env['npm-unpack.useLocalDir'] == "true" ? '' : __dirname) + process.env['npm-unpack.pkg-path'],
         rootDir: context.executionContext.functionDirectory
         // pkg = req.query.pkg || (req.body ? req.body.pkg : ''),
         // version = req.query.version || (req.body ? req.body.version : ''),
