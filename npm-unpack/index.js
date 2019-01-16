@@ -68,7 +68,7 @@ module.exports = async function(context, req) {
             fileResults.push(status);
         }
 
-        context.log(filesResults);
+        context.log(fileResults);
         
         var success = fileResults.every(fileResult => fileResult.Code == 0);
 
