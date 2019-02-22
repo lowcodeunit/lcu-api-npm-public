@@ -18,6 +18,12 @@
       "label": "installExtensions",
       "command": "func extensions install",
       "type": "shell"
-    }
+    },
+    {
+      "label": "npm i",
+      "type": "npm",
+      "script": "install",
+      "auto": true
+    }    
   ]
 }
