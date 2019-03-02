@@ -97,7 +97,7 @@ module.exports = async function(context, req) {
     } else {
         context.res = {
             status: 400,
-            body: { Code: 1, Message: `Invalid inputs ${inputs}` }
+            body: { Code: 1, Message: `Invalid inputs ${JSON.parse(inputs)}` }
         };
     }
 };
