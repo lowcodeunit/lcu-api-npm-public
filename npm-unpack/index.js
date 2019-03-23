@@ -100,4 +100,6 @@ module.exports = async function(context, req) {
             body: { Code: 1, Message: `Invalid inputs ${JSON.parse(inputs)}` }
         };
     }
+
+    console.log(context.res);
 };
