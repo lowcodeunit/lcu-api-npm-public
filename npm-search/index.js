@@ -26,14 +26,14 @@ module.exports = async function(context, req) {
         context.log(`Executing NPM Search for ${search}...`);
 
         // var searchResults = await npmExeq(context, `search ${search} --json`);
-        
-        const searchResults = await axios.get(`https://api.npms.io/v2/search?q=${search}`);
 
-        context.log(`NPM Search complete for ${search}:`);
+        axios.get(`https://api.npms.io/v2/search?q=${search}`).then(searchResults => {
+          context.log(`NPM Search complete for ${search}:`);
 
-        context.res = {
-          body: searchResults
-        };
+          context.res = {
+            body: searchResults
+          };
+        });
       }
     } catch (err) {
       context.log(err);
