@@ -31,8 +31,10 @@ module.exports = async function(context, req) {
           context.log(`NPM Search complete for ${search}:`);
 
           context.res = {
-            body: searchResults
+            body: searchResults.data
           };
+
+          context.done();
         });
       }
     } catch (err) {
@@ -41,11 +43,15 @@ module.exports = async function(context, req) {
         status: 400,
         body: err
       };
+
+      context.done();
     }
   } else {
     context.res = {
       status: 400,
       body: 'Please pass a search on the query string or in the request body'
     };
+
+    context.done();
   }
 };
