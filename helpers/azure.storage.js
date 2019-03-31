@@ -10,7 +10,7 @@ module.exports = function(context) {
                     if (err) {
                         reject(err);
                     } else {
-                        resolve({ Code: 0, Message: "Success" });
+                        resolve({ Code: 0, Message: "Success", File: blobPath });
                     }
                 });
             });

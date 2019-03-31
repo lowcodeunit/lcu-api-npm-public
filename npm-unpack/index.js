@@ -56,7 +56,7 @@ module.exports = async function(context, req) {
 
         context.log(inputs);
 
-        for (let pkgFile of pkgFiles) {
+        var creates = pkgFiles.map(pkgFile => {
             context.log(pkgFile);
     
             var seg = `${inputs.entId}\\${inputs.appId}`;
@@ -72,12 +72,14 @@ module.exports = async function(context, req) {
 
             context.log(blobFilePath);
             
-            var content = await fs.readFile(pkgFile);
+            var content = fs.readFileSync(pkgFile);
 
-            var status = await azStrg.CreateBlob(inputs.containerName, blobFilePath, content);
+            return azStrg.CreateBlob(inputs.containerName, blobFilePath, content);
+        });
 
-            status.File = blobFilePath;
+        var stati = await Promise.all(creates);
 
+        for (let status of stati) {    
             fileResults.push(status);
         }
 
