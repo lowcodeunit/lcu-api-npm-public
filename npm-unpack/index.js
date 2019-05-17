@@ -38,7 +38,7 @@ module.exports = async function(context, req) {
         
         var pkgFiles = [];
 
-        recursive(`${inputs.pkgPath}\\${pkgAsPath}`, async function(err, files) {
+        recursive(`${inputs.pkgPath}\\${pkgAsPath}`, function(err, files) {
             console.log(err);
             
             pkgFiles.push(...files);
