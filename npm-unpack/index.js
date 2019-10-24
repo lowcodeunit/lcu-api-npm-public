@@ -103,5 +103,5 @@ module.exports = async function(context, req) {
         };
     }
 
-    console.log(context.res);
+    context.log(context.res);
 };
