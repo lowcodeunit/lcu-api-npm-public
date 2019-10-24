@@ -13,7 +13,7 @@ module.exports = async function(context, req) {
       if (version) {
         context.log(`Executing NPM Search for ${search} versions...`);
 
-        var searchResults = await npmExeq(context, `view ${search} versions --json`);
+        var searchResults = await npmExeq(context, `view ${search} versions --json`, false);
 
         console.log(searchResults);
 
@@ -25,7 +25,7 @@ module.exports = async function(context, req) {
       } else {
         context.log(`Executing NPM Search for ${search}...`);
 
-        // var searchResults = await npmExeq(context, `search ${search} --json`);
+        // var searchResults = await npmExeq(context, `search ${search} --json`, false);
 
         axios.get(`https://api.npms.io/v2/search?q=${search}`).then(searchResults => {
           context.log(`NPM Search complete for ${search}:`);

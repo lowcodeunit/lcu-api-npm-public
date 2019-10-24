@@ -38,7 +38,9 @@ module.exports = async function(context, req) {
         
         var pkgFiles = [];
 
-        recursive(`${inputs.pkgPath}\\${pkgAsPath}`, async function(err, files) {
+        recursive(`${inputs.pkgPath}\\${pkgAsPath}`, function(err, files) {
+            console.log(err);
+            
             pkgFiles.push(...files);
         });
 
@@ -99,7 +101,7 @@ module.exports = async function(context, req) {
     } else {
         context.res = {
             status: 400,
-            body: { Code: 1, Message: `Invalid inputs ${JSON.parse(inputs)}` }
+            body: { Code: 1, Message: `Invalid inputs ${JSON.stringify(inputs)}` }
         };
     }
 
