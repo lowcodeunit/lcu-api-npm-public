@@ -15,14 +15,16 @@ module.exports = async function(context, npmRefPath, commands, blockJsonParse = 
     
     var cmd = await exeq(commands);
     
-    context.log(cmd);
+    context.log(cmd);    
 
     var results = cmd.map(c => {
         if (!blockJsonParse) 
             return JSON.parse(c.stdout);
         else 
             return c.stdout;
-    });
+    });    
+
+    context.log(results.join('\r\n'))
 
     return results.join('\r\n');
 };

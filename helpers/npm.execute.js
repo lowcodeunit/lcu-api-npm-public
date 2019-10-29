@@ -7,6 +7,10 @@ module.exports = async function(context, command, blockJsonParse = false) {
 
     context.log(cmd);
 
-    if (!blockJsonParse) return JSON.parse(cmd[0].stdout);
-    else return cmd[0].stdout;
+    var stdOut = cmd[0].stdout;
+
+    context.log(stdOut);
+
+    if (!blockJsonParse) return JSON.parse(stdOut);
+    else return stdOut;
 };

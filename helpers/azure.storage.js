@@ -7,9 +7,11 @@ module.exports = function(context) {
         CreateBlob: function(containerName, blobPath, content) {
             return new Promise((resolve, reject) => {
                 blobService.createBlockBlobFromText(containerName, blobPath, content, err => {
-                    if (err) {
+                    if (err) {    
+                        log(err);                    
                         reject(err);
                     } else {
+                        log("successfully created " + blobPath);
                         resolve({ Code: 0, Message: "Success", File: blobPath });
                     }
                 });
@@ -25,8 +27,10 @@ module.exports = function(context) {
                     },
                     function(error, result, response) {
                         if (!error) {
+                            log(result);
                             resolve(result);
                         } else {
+                            log(error);
                             reject(error);
                         }
                     }

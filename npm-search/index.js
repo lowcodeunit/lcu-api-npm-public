@@ -34,6 +34,8 @@ module.exports = async function(context, req) {
             body: searchResults.data
           };
 
+          context.log(context.res);
+
           context.done();
         });
       }
@@ -46,11 +48,13 @@ module.exports = async function(context, req) {
 
       context.done();
     }
-  } else {
+  } else {    
     context.res = {
       status: 400,
       body: 'Please pass a search on the query string or in the request body'
     };
+
+    context.log(con.res);
 
     context.done();
   }
