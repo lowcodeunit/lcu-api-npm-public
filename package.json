@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "@fathym-it/forge": "0.0.64",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "azure-storage": "^2.10.2",
     "download-npm-package": "^3.1.12",
     "exeq": "^3.0.0",
