@@ -2,28 +2,21 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "runFunctionsHost",
-      "type": "shell",
-      "command": "func host start",
-      "isBackground": true,
-      "problemMatcher": "$func-watch",
+      "label": "Git Sync",
+      "type": "shell",      
       "options": {
-        "env": {
-          "languageWorkers__node__arguments": "--inspect=5858"
-        }
+        "cwd": ".vscode"
       },
-      "dependsOn": "installExtensions"
-    },
-    {
-      "label": "installExtensions",
-      "command": "func extensions install",
-      "type": "shell"
-    },
+      "windows": {
+        "command": "Powershell.exe -File feature_branch_sync.ps1"
+      },
+      "auto": true
+    } ,
     {
       "label": "npm i",
       "type": "npm",
       "script": "install",
       "auto": true
-    }    
+    }         
   ]
 }
