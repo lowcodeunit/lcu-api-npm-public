@@ -8,10 +8,10 @@ module.exports = function(context) {
             return new Promise((resolve, reject) => {
                 blobService.createBlockBlobFromText(containerName, blobPath, content, err => {
                     if (err) {    
-                        log(err);                    
+                        context.log(err);                    
                         reject(err);
                     } else {
-                        log("successfully created " + blobPath);
+                        context.log("successfully created " + blobPath);
                         resolve({ Code: 0, Message: "Success", File: blobPath });
                     }
                 });
@@ -27,10 +27,10 @@ module.exports = function(context) {
                     },
                     function(error, result, response) {
                         if (!error) {
-                            log(result);
+                            context.log(result);
                             resolve(result);
                         } else {
-                            log(error);
+                            context.log(error);
                             reject(error);
                         }
                     }
