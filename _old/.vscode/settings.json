@@ -1,0 +1,14 @@
+{
+  "azureFunctions.projectRuntime": "~3",
+  "azureFunctions.projectLanguage": "TypeScript",
+  "azureFunctions.templateFilter": "Verified",
+  "azureFunctions.deploySubpath": ".",
+  // "azureFunctions.preDeployTask": "installExtensions",
+  "files.exclude": {
+    "obj": true,
+    "bin": true
+  },
+  "debug.internalConsoleOptions": "neverOpen",
+  "azureFunctions.postDeployTask": "npm install",
+  "azureFunctions.preDeployTask": "npm prune"
+}
