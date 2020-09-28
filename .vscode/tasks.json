@@ -1,22 +1,23 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Git Sync",
-      "type": "shell",      
-      "options": {
-        "cwd": ".vscode"
-      },
-      "windows": {
-        "command": "Powershell.exe -File feature_branch_sync.ps1"
-      },
-      "auto": true
-    } ,
-    {
-      "label": "npm i",
-      "type": "npm",
-      "script": "install",
-      "auto": true
-    }         
-  ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "func",
+			"command": "host start",
+			"problemMatcher": "$func-watch",
+			"isBackground": true,
+			"dependsOn": "npm install"
+		},
+		{
+			"type": "shell",
+			"label": "npm install",
+			"command": "npm install"
+		},
+		{
+			"type": "shell",
+			"label": "npm prune",
+			"command": "npm prune --production",
+			"problemMatcher": []
+		}
+	]
 }
